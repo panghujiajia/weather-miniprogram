@@ -4,27 +4,16 @@ const app = getApp()
 var bmap = require('bmap-wx.min.js'); 
 Page({
   data: {
-    nu:null,
-    currentCity:'',
-    date:'',
-    currentTemperature:'',
-    pm25:'',
-    src:'',
-    temperature:'',
-    weatherDesc:'',
-    wind:'',
-    originalData:'',
-    originalDate:[],
-    array: [{ msg: '1' }, { msg: '2' }]
-  },
-  selectBtn:function(){
-    console.log(this.data.nu);
-    app.getExpressMsg(this.data.nu,function(data){
-      console.log(data);
-    })
-  },
-  inputVal:function(e){
-    this.setData({nu:e.detail.value});
+    currentCity:'',//城市
+    date:'',//日期
+    currentTemperature:'',//当前温度
+    pm25:'',//pm2.5
+    src:'',//天气图片地址
+    temperature:'',//温度范围
+    weatherDesc:'',//天气说明
+    wind:'',//风力
+    originalData:'',//未来几天天气数据
+    originalDate:[]//保存未来几天数据
   },
   onLoad: function () {
 
@@ -37,6 +26,8 @@ Page({
       console.log(data);
     };
     var success = function (data) {
+      //data为返回数据对象
+      //以下变量同上
       var weatherData = data.currentWeather[0],
           originalData = data.originalData.results[0].weather_data,
           len = weatherData.date.length,
@@ -49,20 +40,15 @@ Page({
           weatherDesc = weatherData.weatherDesc,
           wind = weatherData.wind,
           originalDate = [];
-      // console.log(weatherData);
-      // debugger;
-      for (var i = 1; i < originalData.length; i ++){
+      for(var i = 1; i < originalData.length; i ++){
         var obj = {};
         obj.week = originalData[i].date;
         obj.wether = originalData[i].temperature;
         obj.src = originalData[i].dayPictureUrl;
         originalDate.push(obj);
-      }
-      // console.log(originalDate);
-
-      // console.log(originalData);
-
+      };
       that.setData({
+        //数据赋值
         weatherData: weatherData,
         originalData: originalData,
         currentCity: currentCity,
@@ -76,9 +62,7 @@ Page({
         originalDate: originalDate,
         originalData: originalData[0]
       });
-
-      // console.log(currentTemperature);
-    }
+    };
     // 发起weather请求 
     BMap.weather({
       fail: fail,

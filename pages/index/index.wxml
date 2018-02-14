@@ -1,13 +1,4 @@
 <!--index.wxml-->
-<!-- <view class="container">
-  <input placeholder='请输入快递单号' placeholder-style="font-size:28rpx;text-indent:20rpx;" type="text" bindinput='inputVal' />
-</view>
-  <button type="primary" bindtap="selectBtn" id="selectBtn">查询</button> -->
-
-<view class="weather"> 
-  <text>{{}}</text> 
-</view>
-
 <view class="weather">
   <!--城市  -->
   <view class="city">
