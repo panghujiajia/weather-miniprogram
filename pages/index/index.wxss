@@ -1,4 +1,5 @@
 /**index.wxss**/
+
 .weather{
   padding:0 20rpx;
 }

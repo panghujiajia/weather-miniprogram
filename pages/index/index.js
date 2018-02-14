@@ -1,5 +1,6 @@
 //index.js
 //获取应用实例
+
 const app = getApp()
 var bmap = require('bmap-wx.min.js'); 
 Page({
