@@ -1,73 +1,111 @@
-//index.js
-//获取应用实例
-
-const app = getApp()
-var bmap = require('bmap-wx.min.js'); 
+var QQMapWX = require('../../utils/qqmap-wx-jssdk.min.js');
 Page({
-  data: {
-    currentCity:'',//城市
-    date:'',//日期
-    currentTemperature:'',//当前温度
-    pm25:'',//pm2.5
-    src:'',//天气图片地址
-    temperature:'',//温度范围
-    weatherDesc:'',//天气说明
-    wind:'',//风力
-    originalData:'',//未来几天天气数据
-    originalDate:[]//保存未来几天数据
-  },
-  onLoad: function () {
-
-    var that = this;
-    // 新建百度地图对象 
-    var BMap = new bmap.BMapWX({
-      ak: 'WBzyHsoHB5zTSb2jBTM8I7bInpI3y8gH'
-    });
-    var fail = function (data) {
-      console.log(data);
-    };
-    var success = function (data) {
-      //data为返回数据对象
-      //以下变量同上
-      var weatherData = data.currentWeather[0],
-          originalData = data.originalData.results[0].weather_data,
-          len = weatherData.date.length,
-          currentCity = weatherData.currentCity,
-          date = weatherData.date.slice(3, 8),
-          currentTemperature = weatherData.date.substring(14, len-2),
-          src = originalData[0].dayPictureUrl,
-          pm25 = weatherData.pm25,
-          temperature = weatherData.temperature,
-          weatherDesc = weatherData.weatherDesc,
-          wind = weatherData.wind,
-          originalDate = [];
-      for(var i = 1; i < originalData.length; i ++){
-        var obj = {};
-        obj.week = originalData[i].date;
-        obj.wether = originalData[i].temperature;
-        obj.src = originalData[i].dayPictureUrl;
-        originalDate.push(obj);
-      };
-      that.setData({
-        //数据赋值
-        weatherData: weatherData,
-        originalData: originalData,
-        currentCity: currentCity,
-        date: date,
-        currentTemperature: currentTemperature,
-        src: src,
-        pm25: pm25,
-        temperature: temperature,
-        weatherDesc: weatherDesc,
-        wind: wind,
-        originalDate: originalDate,
-        originalData: originalData[0]
-      });
-    };
-    // 发起weather请求 
-    BMap.weather({
-      fail: fail,
-      success: success
-    }); 
-  }
+    data: {
+        locationData: null,
+        addressData: null
+    },
+    // 获取用户定位
+    getUserLocation: function () {
+        var that = this;
+        wx.getLocation({
+            type: 'wgs84',
+            success: function (res) {
+                if (!!res) {
+                    var locationData = res;
+                    that.setData({
+                        locationData: locationData
+                    })
+                    that.getUserCity();
+                }
+            }
+        })
+    },
+    // 根据用户定位坐标获取用户城市
+    getUserCity: function () {
+        var that = this;
+        var locationData = this.data.locationData;
+        this.data.qqMap.reverseGeocoder({
+            location: {
+                latitude: locationData.latitude,
+                longitude: locationData.longitude
+            },
+            success: function (res) {
+                if (res.status == 0) {
+                    var addressData = res.result.address_component;
+                    that.setData({
+                        addressData: addressData
+                    })
+                    that.getWeather()
+                }
+            },
+            fail: function (res) {
+            }
+        })
+    },
+    // 发起获取天气请求
+    getWeather: function () {
+        var city = this.data.addressData.city;
+        // 传参要求不带 ‘市’
+        city = city.slice(0, city.length - 1);
+        wx.request({
+            url: 'https://www.tianqiapi.com/api/',
+            data: {
+                version: 'v1',
+                city: city
+            },
+            method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+            // header: {}, // 设置请求的 header
+            success: function (res) {
+                console.log(res);
+            },
+            fail: function () {
+            }
+        })
+    },
+    onLoad: function (options) {
+        // 生命周期函数--监听页面加载
+        var qqMap = new QQMapWX({
+            key: '5DUBZ-ORBKV-UUGPC-UKT4G-CGHZ6-JQBGX'
+        })
+        this.data.qqMap = qqMap;
+        this.getUserLocation()
+    },
+    onReady: function () {
+        // 生命周期函数--监听页面初次渲染完成
+    },
+    onShow: function () {
+        // 生命周期函数--监听页面显示
+        // this.data.qqMap.search({
+        //     keyword: '酒店',
+        //     success: function (res) {
+        //         console.log(res);
+        //     },
+        //     fail: function (res) {
+        //         console.log(res);
+        //     },
+        //     complete: function (res) {
+        //         console.log(res);
+        //     }
+        // })
+    },
+    onHide: function () {
+        // 生命周期函数--监听页面隐藏
+    },
+    onUnload: function () {
+        // 生命周期函数--监听页面卸载
+    },
+    onPullDownRefresh: function () {
+        // 页面相关事件处理函数--监听用户下拉动作
+    },
+    onReachBottom: function () {
+        // 页面上拉触底事件的处理函数
+    },
+    onShareAppMessage: function () {
+        // 用户点击右上角分享
+        return {
+            title: 'title', // 分享标题
+            desc: 'desc', // 分享描述
+            path: 'path' // 分享路径
+        }
+    }
 })
