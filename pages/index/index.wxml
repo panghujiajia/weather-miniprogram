@@ -1,3 +1,10 @@
 <view class="container">
-    
+    <view class="mainContent">
+        <view class="temperature">
+            <view class="num">23</view>
+            <text class="">℃</text>
+            <view>晴,7°~23°</view>
+        </view>
+        <view class="iconfont icon-qingtian"></view>
+    </view>
 </view>

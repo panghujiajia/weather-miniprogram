@@ -68,7 +68,7 @@ Page({
             key: '5DUBZ-ORBKV-UUGPC-UKT4G-CGHZ6-JQBGX'
         })
         this.data.qqMap = qqMap;
-        this.getUserLocation()
+        // this.getUserLocation()
     },
     onReady: function () {
         // 生命周期函数--监听页面初次渲染完成
