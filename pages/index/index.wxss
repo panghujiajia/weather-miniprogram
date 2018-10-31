@@ -4,6 +4,7 @@ page {
 .container .mainContent {
   display: flex;
   justify-content: space-around;
+  align-items: center;
   padding: 40rpx 0;
   background: #fff;
 }
@@ -15,7 +16,7 @@ page {
 .container .mainContent .temperature .unit {
   position: absolute;
   right: -20rpx;
-  top: 30rpx;
+  top: 20rpx;
   color: #757575;
 }
 .container .mainContent .temperature .num {
@@ -26,6 +27,10 @@ page {
   font-size: 22rpx;
   text-align: center;
   color: #AEAEAE;
+}
+.container .mainContent image {
+  width: 140rpx;
+  height: 140rpx;
 }
 .container .mainContent .iconfont {
   font-size: 160rpx;
