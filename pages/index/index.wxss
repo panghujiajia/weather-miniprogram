@@ -1,39 +1,178 @@
 page {
-  background: #EEEEEE;
+  background: #f8f8f9;
+}
+.floor {
+  position: fixed;
+  top: 50rpx;
+  z-index: -1;
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  color: #000;
+  text-align: center;
+}
+.floor image {
+  display: block;
+  margin: 0 auto;
+  width: 400rpx;
+  height: 400rpx;
+}
+.container {
+  position: relative;
+  z-index: 99;
+}
+.container .dotsWrap {
+  position: absolute;
+  width: 750rpx;
+  top: 190rpx;
+  left: 50%;
+  margin-left: -375rpx;
+  z-index: 10;
+}
+.container .dotsWrap .dots {
+  text-align: center;
+  height: 30rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container .dotsWrap .dots text {
+  display: inline-block;
+  margin-right: 10rpx;
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  background: #333;
+}
+.container .dotsWrap .dots text.cur {
+  background: #fff;
+}
+.container .dotsWrap .dots text:last-child {
+  margin-right: 0;
+}
+.container swiper {
+  height: 100vh;
+}
+.container swiper .swiper-item {
+  height: 100vh;
 }
 .container .mainContent {
+  position: relative;
+  height: 776rpx;
+  width: 750rpx;
+}
+.container .mainContent image {
+  position: absolute;
+  height: 776rpx;
+  width: 750rpx;
+  z-index: -1;
+}
+.container .mainContent .mainInfoWrap {
+  height: 776rpx;
+  width: 750rpx;
+  padding-top: 140rpx;
+}
+.container .mainContent .mainInfoWrap .address {
+  text-align: center;
+  height: 50rpx;
+  line-height: 50rpx;
+}
+.container .mainContent .mainInfoWrap .address text {
+  color: #fff;
+}
+.container .mainContent .mainInfoWrap .address text.iconfont {
+  font-size: 36rpx;
+  margin-right: 10rpx;
+}
+.container .mainContent .mainInfoWrap .weather {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
   align-items: center;
+  color: #fff;
+  margin-top: 80rpx;
+  text-shadow: 0 0 2rpx #333;
+}
+.container .mainContent .mainInfoWrap .weather .temperature {
+  font-size: 120rpx;
+  font-weight: normal;
+  position: relative;
+}
+.container .mainContent .mainInfoWrap .weather .temperature text {
+  position: absolute;
+  width: 20rpx;
+  height: 20rpx;
+  border: 6rpx solid #fff;
+  border-radius: 50%;
+  right: -20rpx;
+  top: 20rpx;
+  box-shadow: 0 0 2rpx #333;
+}
+.container .mainContent .mainInfoWrap .weather .description {
+  font-size: 34rpx;
+}
+.container .mainContent .mainInfoWrap .weather .range {
+  font-size: 26rpx;
+  margin-top: 20rpx;
+}
+.container .daysWeather {
   padding: 40rpx 0;
   background: #fff;
 }
-.container .mainContent .temperature {
-  width: 200rpx;
-  text-align: center;
-  position: relative;
+.container .daysWeather .tabs {
+  display: flex;
+  margin-left: 40rpx;
 }
-.container .mainContent .temperature .unit {
-  position: absolute;
-  right: -20rpx;
-  top: 20rpx;
-  color: #757575;
-}
-.container .mainContent .temperature .num {
-  font-size: 120rpx;
-  color: #757575;
-}
-.container .mainContent .temperature .range {
+.container .daysWeather .tabs text {
+  background: #EDEDED;
   font-size: 22rpx;
+  margin-right: 20rpx;
+  width: 120rpx;
   text-align: center;
-  color: #AEAEAE;
+  height: 40rpx;
+  line-height: 40rpx;
+  border-radius: 40rpx;
 }
-.container .mainContent image {
-  width: 140rpx;
-  height: 140rpx;
+.container .daysWeather .tabs text.cur {
+  background: #FEF3C3;
 }
-.container .mainContent .iconfont {
-  font-size: 160rpx;
-  color: #757575;
-  font-weight: normal;
+.container .daysWeather .scrollBox {
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 0;
+  margin-top: 40rpx;
+}
+.container .daysWeather .scrollBox .weatherBox {
+  width: 180rpx;
+  height: 200rpx;
+  display: inline-block;
+  border-right: 2rpx solid #EBEBEB;
+}
+.container .daysWeather .scrollBox .weatherBox:last-child {
+  border-right: none;
+}
+.container .daysWeather .scrollBox .weatherBox .weatherInfo {
+  display: flex;
+  height: 200rpx;
+  padding: 10rpx 0;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+}
+.container .daysWeather .scrollBox .weatherBox .weatherInfo image {
+  width: 60rpx;
+  height: 60rpx;
+}
+.container .daysWeather .scrollBox .weatherBox .weatherInfo view text {
+  display: block;
+  text-align: center;
+  font-size: 22rpx;
+}
+.container .daysWeather .scrollBox .weatherBox .weatherInfo view text + text {
+  margin-top: 5rpx;
+}
+.container .daysWeather .scrollBox .weatherBox .weatherInfo text {
+  font-size: 22rpx;
+}
+.container .daysWeather .scrollBox .weatherBox .weatherInfo .iconfont {
+  font-size: 50rpx;
 }

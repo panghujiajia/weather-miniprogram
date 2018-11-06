@@ -1,41 +1,182 @@
-page{
-    background:#EEEEEE;
+page {
+    background: #f8f8f9;
 }
-.container{
-    .mainContent{
-        display:flex;
-        justify-content:space-around;
-        align-items: center;
-        padding:40rpx 0;
-        background:#fff;
-        .temperature{
-            width:200rpx;
+
+.floor {
+    position: fixed;
+    top: 50rpx;
+    z-index: -1;
+    width: 100%;
+    height: 100rpx;
+    line-height: 100rpx;
+    color: #000;
+    text-align: center;
+    image {
+        display: block;
+        margin: 0 auto;
+        width: 400rpx;
+        height: 400rpx;
+    }
+}
+
+.container {
+    position: relative;
+    z-index: 99;
+    .dotsWrap {
+        position: absolute;
+        width:750rpx;
+        top:190rpx;
+        left:50%;
+        margin-left:-375rpx;
+        z-index:10;
+        .dots {
             text-align: center;
-            position: relative;
-            .unit{
-                position: absolute;
-                right:-20rpx;
-                top:20rpx;
-                color:#757575;
+            height: 30rpx;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text {
+                display: inline-block;
+                margin-right: 10rpx;
+                width: 10rpx;
+                height: 10rpx;
+                border-radius: 50%;
+                background: #333;
+                &.cur {
+                    background: #fff;
+                }
+                &:last-child {
+                    margin-right: 0;
+                }
             }
-            .num{
-                font-size:120rpx;
-                color:#757575;
-            }
-            .range{
-                font-size:22rpx;
+        }
+    }
+    swiper {
+        height: 100vh;
+        .swiper-item {
+            height: 100vh;
+        }
+    }
+    .mainContent {
+        position: relative;
+        height: 776rpx;
+        width: 750rpx;
+        image {
+            position: absolute;
+            height: 776rpx;
+            width: 750rpx;
+            z-index: -1;
+        }
+        .mainInfoWrap {
+            height: 776rpx;
+            width: 750rpx;
+            padding-top: 140rpx;
+            .address {
                 text-align: center;
-                color:#AEAEAE;
+                height: 50rpx;
+                line-height: 50rpx;
+                text {
+                    color: #fff;
+                    &.iconfont {
+                        font-size: 36rpx;
+                        margin-right: 10rpx;
+                    }
+                }
+            }
+            .weather {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                color: #fff;
+                margin-top: 80rpx;
+                text-shadow: 0 0 2rpx #333;
+                .temperature {
+                    font-size: 120rpx;
+                    font-weight: normal;
+                    position: relative;
+                    text {
+                        position: absolute;
+                        width: 20rpx;
+                        height: 20rpx;
+                        border: 6rpx solid #fff;
+                        border-radius: 50%;
+                        right: -20rpx;
+                        top: 20rpx;
+                        box-shadow: 0 0 2rpx #333;
+                    }
+                }
+                .description {
+                    font-size: 34rpx;
+                }
+                .range {
+                    font-size: 26rpx;
+                    margin-top: 20rpx;
+                }
             }
         }
-        image{
-            width:140rpx;
-            height:140rpx;
+    }
+    .daysWeather {
+        padding: 40rpx 0;
+        background: #fff;
+        .tabs {
+            display: flex;
+            margin-left: 40rpx;
+            text {
+                background: #EDEDED;
+                font-size: 22rpx;
+                margin-right: 20rpx;
+                width: 120rpx;
+                text-align: center;
+                height: 40rpx;
+                line-height: 40rpx;
+                border-radius: 40rpx;
+                &.cur {
+                    background: #FEF3C3;
+                }
+            }
         }
-        .iconfont{
-            font-size:160rpx;
-            color:#757575;
-            font-weight: normal;
+        .scrollBox {
+            white-space: nowrap;
+            overflow: hidden;
+            font-size: 0;
+            margin-top: 40rpx;
+            .weatherBox {
+                width: 180rpx;
+                height: 200rpx;
+                display: inline-block;
+                border-right: 2rpx solid #EBEBEB;
+                &:last-child {
+                    border-right: none;
+                }
+                .weatherInfo {
+                    display: flex;
+                    height: 200rpx;
+                    padding: 10rpx 0;
+                    justify-content: space-between;
+                    flex-direction: column;
+                    align-items: center;
+                    image {
+                        width: 60rpx;
+                        height: 60rpx;
+                    }
+                    view {
+                        text {
+                            display: block;
+                            text-align: center;
+                            font-size: 22rpx;
+                            &+text {
+                                margin-top: 5rpx;
+                            }
+                        }
+                    }
+                    text {
+                        font-size: 22rpx;
+                    }
+                    .iconfont {
+                        font-size: 50rpx;
+                    }
+                }
+            }
         }
     }
 }

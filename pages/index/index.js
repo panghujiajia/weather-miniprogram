@@ -1,8 +1,22 @@
 var QQMapWX = require('../../utils/qqmap-wx-jssdk.min.js');
 Page({
     data: {
-        locationData: null,
-        addressData: null
+        curIndex: 1,
+        tabData: [{
+            tabName: '7天天气',
+            tabIndex: 1
+        }, {
+            tabName: '24H天气',
+            tabIndex: 2
+        }],
+        locationData: null,     //定位信息
+        addressData: null       //地址信息
+    },
+    // tab切换
+    changeTabs: function (e) {
+        this.setData({
+            curIndex: e.currentTarget.dataset.tabindex
+        })
     },
     // 获取用户定位
     getUserLocation: function () {
