@@ -13,7 +13,32 @@ const formatNumber = n => {
     n = n.toString()
     return n[1] ? n : '0' + n
 }
-
+const ajax = (url, data, method, s, f, c) => {
+    wx.showLoading({
+        title: '加载中...',
+        mask: true
+    })
+    wx.request({
+        url: url,
+        data: data || '',
+        method: method || 'get', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+        success: function (res) {
+            if (s)
+                s(res)
+        },
+        fail: function (res) {
+            wx.showToast('网络异常，请重试！');
+            if (f)
+                f(res)
+        },
+        complete: function (res) {
+            wx.hideLoading()
+            if (c)
+                c(res)
+        }
+    })
+}
 module.exports = {
-    formatTime: formatTime
+    formatTime: formatTime,
+    ajax: ajax
 }

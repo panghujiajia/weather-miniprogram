@@ -2,31 +2,26 @@
     <image src="/images/dontlook.jpg"></image>
 </view>
 <view class="container">
-    <view class="dotsWrap">
+    <text class="addCity iconfont icon-jia"></text>
+    <view class="dotsWrap" wx:if="{{dataArr.length != 1}}">
         <view class="dots">
-            <text></text>
-            <text class="cur"></text>
+            <text wx:for="{{dataArr}}"></text>
         </view>
     </view>
-    <swiper circular="true" autoplay="false" duration="200">
+    <swiper circular="{{circular}}" autoplay="{{autoplay}}" duration="{{duration}}">
         <block>
-            <swiper-item>
+            <swiper-item wx:for="{{dataArr}}" wx:key="key">
                 <view class="mainContent">
-                    <image src="/images/qing.png"></image>
-                    <!-- <image src="/images/yu.png"></image>
-                        <image src="/images/yin.png"></image>
-                        <image src="/images/wu.png"></image>
-                        <image src="/images/xue.png"></image>
-                        <image src="/images/ye.png"></image> -->
+                    <image src="{{weatherBgImg}}"></image>
                     <view class="mainInfoWrap">
                         <view class="address">
                             <text class="iconfont icon-location"></text>
-                            <text>武汉市 洪山区</text>
+                            <text>{{addressData.city}}</text>
                         </view>
                         <view class="weather">
-                            <view class="temperature">9<text></text></view>
-                            <view class="description">晴</view>
-                            <view class="range">7°~20°</view>
+                            <view class="temperature" wx:if="{{nowWeather != null}}">{{nowWeather.tem}}<text></text></view>
+                            <view class="description">{{nowWeather.wea}}</view>
+                            <view class="range" wx:if="{{today != null}}">{{today.tem1}}°~{{today.tem2}}°</view>
                         </view>
                     </view>
                 </view>
@@ -36,105 +31,28 @@
                             bindtap="changeTabs" wx:for="{{tabData}}" wx:key="key">{{item.tabName}}</text>
                     </view>
                     <scroll-view class="scrollBox" wx:if="{{curIndex == 1}}" scroll-x="true">
-                        <view class="weatherBox">
+                        <view class="weatherBox" wx:for="{{weatherData}}" wx:key="key">
                             <view class="weatherInfo">
                                 <!-- <image src="/images/icon/00晴.png"></image> -->
                                 <text class="iconfont icon-xiaoyu"></text>
                                 <view>
-                                    <text>晴</text>
-                                    <text>7°~23°</text>
+                                    <text>{{item.wea}}</text>
+                                    <text>{{item.tem1}}°~{{item.tem2}}°</text>
                                 </view>
-                                <text>今天</text>
-                            </view>
-                        </view>
-                        <view class="weatherBox">
-                            <view class="weatherInfo">
-                                <!-- <image src="/images/icon/00晴.png"></image> -->
-                                <text class="iconfont icon-qingtian"></text>
-                                <view>
-                                    <text>晴</text>
-                                    <text>7°~23°</text>
-                                </view>
-                                <text>11/07</text>
+                                <text>{{item.day}}</text>
                             </view>
                         </view>
                     </scroll-view>
                     <scroll-view class="scrollBox" wx:elif="{{curIndex == 2}}" scroll-x="true">
-                        <view class="weatherBox">
+                        <view class="weatherBox" wx:for="{{today.hours}}" wx:key="key">
                             <view class="weatherInfo">
                                 <!-- <image src="/images/icon/00晴.png"></image> -->
                                 <text class="iconfont icon-xiaoyu"></text>
                                 <view>
-                                    <text>阴</text>
-                                    <text>7°~23°</text>
+                                    <text>{{item.wea}}</text>
+                                    <text>{{item.tem}}°</text>
                                 </view>
-                                <text>11/07</text>
-                            </view>
-                        </view>
-                    </scroll-view>
-                </view>
-            </swiper-item>
-        </block>
-        <block>
-            <swiper-item>
-                <view class="mainContent">
-                    <image src="/images/qing.png"></image>
-                    <!-- <image src="/images/yu.png"></image>
-                            <image src="/images/yin.png"></image>
-                            <image src="/images/wu.png"></image>
-                            <image src="/images/xue.png"></image>
-                            <image src="/images/ye.png"></image> -->
-                    <view class="mainInfoWrap">
-                        <view class="address">
-                            <text class="iconfont icon-location"></text>
-                            <text>武汉市 洪山区</text>
-                        </view>
-                        <view class="weather">
-                            <view class="temperature">9<text></text></view>
-                            <view class="description">晴</view>
-                            <view class="range">7°~20°</view>
-                        </view>
-                    </view>
-                </view>
-                <view class="daysWeather">
-                    <view class="tabs">
-                        <text data-tabindex="{{item.tabIndex}}" class="{{item.tabIndex == curIndex ? 'cur' : ''}}"
-                            bindtap="changeTabs" wx:for="{{tabData}}" wx:key="key">{{item.tabName}}</text>
-                    </view>
-                    <scroll-view class="scrollBox" wx:if="{{curIndex == 1}}" scroll-x="true">
-                        <view class="weatherBox">
-                            <view class="weatherInfo">
-                                <!-- <image src="/images/icon/00晴.png"></image> -->
-                                <text class="iconfont icon-xiaoyu"></text>
-                                <view>
-                                    <text>晴</text>
-                                    <text>7°~23°</text>
-                                </view>
-                                <text>今天</text>
-                            </view>
-                        </view>
-                        <view class="weatherBox">
-                            <view class="weatherInfo">
-                                <!-- <image src="/images/icon/00晴.png"></image> -->
-                                <text class="iconfont icon-qingtian"></text>
-                                <view>
-                                    <text>晴</text>
-                                    <text>7°~23°</text>
-                                </view>
-                                <text>11/07</text>
-                            </view>
-                        </view>
-                    </scroll-view>
-                    <scroll-view class="scrollBox" wx:elif="{{curIndex == 2}}" scroll-x="true">
-                        <view class="weatherBox">
-                            <view class="weatherInfo">
-                                <!-- <image src="/images/icon/00晴.png"></image> -->
-                                <text class="iconfont icon-xiaoyu"></text>
-                                <view>
-                                    <text>阴</text>
-                                    <text>7°~23°</text>
-                                </view>
-                                <text>11/07</text>
+                                <text>{{item.day}}</text>
                             </view>
                         </view>
                     </scroll-view>
@@ -142,4 +60,8 @@
             </swiper-item>
         </block>
     </swiper>
+    <view class="quotes">
+        <text>{{quotesData.famous_saying}}</text>
+        <text wx:if="{{quotesData != null}}">——{{quotesData.famous_name}}</text>
+    </view>
 </view>

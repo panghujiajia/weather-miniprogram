@@ -1,12 +1,32 @@
 {
-  "pages":[
-    "pages/index/index"
-  ],
-  "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "天气",
-    "navigationBarTextStyle":"black",
-    "navigationStyle":"custom"
-  }
+    "pages": [
+        "pages/index/index",
+        "pages/set/set"
+    ],
+    "tabBar": {
+        "backgroundColor": "#fff",
+        "color": "#515151",
+        "selectedColor": "#515151",
+        "list": [
+            {
+                "pagePath": "pages/index/index",
+                "text": "天气",
+                "iconPath": "/images/tabIcon/index.png",
+                "selectedIconPath": "/images/tabIcon/curIndex.png"
+            },
+            {
+                "pagePath": "pages/set/set",
+                "text": "发现",
+                "iconPath": "/images/tabIcon/find.png",
+                "selectedIconPath": "/images/tabIcon/curFind.png"
+            }
+        ]
+    },
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "天气",
+        "navigationBarTextStyle": "black",
+        "navigationStyle": "custom"
+    }
 }

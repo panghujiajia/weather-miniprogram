@@ -21,14 +21,25 @@ page {
 
 .container {
     position: relative;
+    background:#fff;
     z-index: 99;
+    .addCity{
+        position: absolute;
+        height:150rpx;
+        line-height:150rpx;
+        top:0;
+        left:20rpx;
+        font-size:50rpx;
+        color:#fff;
+        z-index:999;
+    }
     .dotsWrap {
         position: absolute;
-        width:750rpx;
-        top:190rpx;
-        left:50%;
-        margin-left:-375rpx;
-        z-index:10;
+        width: 750rpx;
+        top: 190rpx;
+        left: 50%;
+        margin-left: -375rpx;
+        z-index: 10;
         .dots {
             text-align: center;
             height: 30rpx;
@@ -52,9 +63,9 @@ page {
         }
     }
     swiper {
-        height: 100vh;
+        height: 90vh;
         .swiper-item {
-            height: 100vh;
+            height: 100%;
         }
     }
     .mainContent {
@@ -177,6 +188,31 @@ page {
                     }
                 }
             }
+        }
+    }
+    .quotes {
+        height: 10vh;
+        padding:0 40rpx;
+        border-top:1rpx solid #EBEBEB;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text:first-child{
+            align-self: flex-start;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            width:90%;
+            text-indent:48rpx;
+            font-size:24rpx;
+        }
+        text:last-child{
+            align-self: flex-end;
+            font-size:24rpx;
         }
     }
 }
