@@ -61,7 +61,7 @@ Page({
     },
     // 模糊匹配
     fuzzyMatch: function (val) {
-        var iconArr = ['雨','雪','晴','云','阴','夜','夹','阵','沙','雾','尘','霾','冰雹'];
+        var iconArr = ['雨', '雪', '晴', '云', '阴', '夜', '夹', '阵', '沙', '雾', '尘', '霾', '冰雹'];
         var iconClass = {
             '雨': 'icon-dayu',
             '雪': 'icon-zhongxue',
@@ -77,9 +77,9 @@ Page({
             '霾': 'icon-zhongdumai',
             '冰雹': 'icon-bingbao'
         }
-        for(var i in iconArr){
+        for (var i in iconArr) {
             var item = iconArr[i];
-            if(val.indexOf(item) != -1){
+            if (val.indexOf(item) != -1) {
                 return iconClass[item];
             }
         }
@@ -114,7 +114,6 @@ Page({
                         items.weaClass = that.fuzzyMatch(items.wea);
                     }
                 }
-                console.log(weatherData);
                 that.data.dataArr.push(weatherData);
                 that.setData({
                     weatherData: weatherData,
@@ -202,8 +201,7 @@ Page({
         var data = {
             key: 'b7133dffebd04e1181c1e3e93278c203'
         }
-        u.ajax(url, data, '', function (res) {
-            console.log(res)
+        u.ajax(url, data, 'get', function (res) {
             if (res.data.reason == 'Succes') {
                 // famous_name  名人
                 // famous_saying名言
@@ -212,6 +210,8 @@ Page({
                     quotesData: quotesData
                 })
             }
+        }, function (res) {
+            console.log(res)
         })
     },
     // 禁止轮播组件滑动
