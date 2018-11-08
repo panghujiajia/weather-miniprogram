@@ -39,7 +39,15 @@ const ajax = (url, data, method, s, f, c) => {
         }
     })
 }
+const setStorage = (key, val) => {
+    wx.setStorageSync(key, val);
+}
+const getStorage = key => {
+    return wx.getStorageSync(key);
+}
 module.exports = {
     formatTime: formatTime,
-    ajax: ajax
+    ajax: ajax,
+    setStorage: setStorage,
+    getStorage: getStorage
 }

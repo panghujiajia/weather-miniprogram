@@ -1,7 +1,8 @@
 {
     "pages": [
         "pages/index/index",
-        "pages/set/set"
+        "pages/set/set",
+        "pages/bus/bus"
     ],
     "tabBar": {
         "backgroundColor": "#fff",
@@ -13,6 +14,12 @@
                 "text": "天气",
                 "iconPath": "/images/tabIcon/index.png",
                 "selectedIconPath": "/images/tabIcon/curIndex.png"
+            },
+            {
+                "pagePath": "pages/bus/bus",
+                "text": "公交",
+                "iconPath": "/images/tabIcon/box.png",
+                "selectedIconPath": "/images/tabIcon/curBox.png"
             },
             {
                 "pagePath": "pages/set/set",
