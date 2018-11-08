@@ -15,7 +15,9 @@ Page({
         }],
         locationData: null,     //定位信息
         addressData: null,       //地址信息
-        dataArr: []
+        dataArr: [],
+        pageSize: 20,
+        pageIndex: 1
     },
     // tab切换
     changeTabs: function (e) {
@@ -31,10 +33,12 @@ Page({
             success: function (res) {
                 if (!!res) {
                     var locationData = res;
+                    console.log(res)
                     that.setData({
                         locationData: locationData
                     })
                     that.getUserCity();
+                    that.getNearbyBus();
                 }
             }
         })
@@ -56,6 +60,50 @@ Page({
                     })
                     that.getWeather()
                 }
+            }
+        })
+    },
+    // 查询用户周边的公交站点
+    getNearbyBus: function () {
+        var that = this;
+        var locationData = this.data.locationData;
+        var location = {
+            latitude: locationData.latitude,
+            longitude: locationData.longitude
+        }
+        // 调用接口
+        this.data.qqMap.search({
+            keyword: '公交',
+            // location: location,
+            page_size: this.data.pageSize,
+            page_index: this.data.pageIndex,
+            success: function (res) {
+                var oldData = that.data.busData;
+                var busData = res.data;
+                // 进行数据合并
+                if (oldData != null) {
+                    busData = oldData.concat(busData);
+                }
+                // 数据总条数除以单页数向上取整，得到需要请求的总页码数
+                var totalPage = Math.ceil(res.count / that.data.pageSize);
+                // 如果当前页面小于总页面，继续请求
+                if (totalPage > that.data.pageIndex) {
+                    that.data.pageIndex++;
+                    that.getNearbyBus()
+                }
+                that.setData({
+                    busData: busData
+                })
+                // 判断数据是否获取完毕，完毕即打印公交站名
+                if (that.data.busData.length == res.count) {
+                    for (var i in that.data.busData) {
+                        var item = that.data.busData[i];
+                        console.log(item.title)
+                    }
+                }
+            },
+            fail: function (res) {
+                console.log(res);
             }
         })
     },
@@ -181,7 +229,7 @@ Page({
             weatherBgImg = '/images/yu.png';
         } else if (nowWeather.wea.indexOf('雪') != -1) {
             weatherBgImg = '/images/xue.png';
-        } else if (nowWeather.wea.indexOf('阴') != -1) {
+        } else if (nowWeather.wea.indexOf('阴') != -1 || nowWeather.wea.indexOf('云') != -1) {
             weatherBgImg = '/images/yin.png';
         } else if (nowWeather.wea.indexOf('雾') != -1) {
             weatherBgImg = '/images/wu.png';
@@ -225,7 +273,7 @@ Page({
         })
         this.data.qqMap = qqMap;
         this.getUserLocation();
-        this.getQuotes();
+        // this.getQuotes();
     },
     onReady: function () {
     },
