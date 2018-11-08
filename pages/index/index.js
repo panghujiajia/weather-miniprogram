@@ -61,16 +61,27 @@ Page({
     },
     // 模糊匹配
     fuzzyMatch: function (val) {
+        var iconArr = ['雨','雪','晴','云','阴','夜','夹','阵','沙','雾','尘','霾','冰雹'];
         var iconClass = {
+            '雨': 'icon-dayu',
+            '雪': 'icon-zhongxue',
             '晴': 'icon-qing',
-            '云': 'icon-qing',
-            '阴': 'icon-qing',
-            '阵雨': 'icon-qing',
-            '雨': 'icon-qing',
-            '雪': 'icon-qing',
-            '沙尘': 'icon-sha',
-            '雾': 'icon-qing',
-            '冰雹': 'icon-qing'
+            '云': 'icon-duoyun',
+            '阴': 'icon-yin',
+            '夜': 'icon-ye',
+            '夹': 'icon-yujiaxue',
+            '阵': 'icon-leizhenyu',
+            '沙': 'icon-yangsha',
+            '雾': 'icon-wu',
+            '尘': 'icon-fuchen',
+            '霾': 'icon-zhongdumai',
+            '冰雹': 'icon-bingbao'
+        }
+        for(var i in iconArr){
+            var item = iconArr[i];
+            if(val.indexOf(item) != -1){
+                return iconClass[item];
+            }
         }
     },
     // 发起获取天气请求
@@ -94,13 +105,16 @@ Page({
                     // 将温度的摄氏度单位去掉 ℃ 
                     item.tem1 = tem1.slice(0, tem1.length - 1);
                     item.tem2 = tem2.slice(0, tem2.length - 1);
+                    item.weaClass = that.fuzzyMatch(item.wea);
                     for (var j in item.hours) {
                         var items = item.hours[j];
                         var tem = items.tem;
                         // 把逐时天气的摄氏度单位去掉
                         items.tem = tem.slice(0, tem.length - 1);
+                        items.weaClass = that.fuzzyMatch(items.wea);
                     }
                 }
+                console.log(weatherData);
                 that.data.dataArr.push(weatherData);
                 that.setData({
                     weatherData: weatherData,

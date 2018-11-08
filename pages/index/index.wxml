@@ -5,7 +5,7 @@
     <text class="addCity iconfont icon-jia"></text>
     <view class="dotsWrap" wx:if="{{dataArr.length != 1}}">
         <view class="dots">
-            <text wx:for="{{dataArr}}"></text>
+            <text wx:for="{{dataArr}}" wx:key="key"></text>
         </view>
     </view>
     <swiper circular="{{circular}}" autoplay="{{autoplay}}" duration="{{duration}}">
@@ -33,8 +33,7 @@
                     <scroll-view class="scrollBox" wx:if="{{curIndex == 1}}" scroll-x="true">
                         <view class="weatherBox" wx:for="{{weatherData}}" wx:key="key">
                             <view class="weatherInfo">
-                                <!-- <image src="/images/icon/00晴.png"></image> -->
-                                <text class="iconfont icon-xiaoyu"></text>
+                                <text class="iconfont {{item.weaClass}}"></text>
                                 <view>
                                     <text>{{item.wea}}</text>
                                     <text>{{item.tem1}}°~{{item.tem2}}°</text>
@@ -46,8 +45,7 @@
                     <scroll-view class="scrollBox" wx:elif="{{curIndex == 2}}" scroll-x="true">
                         <view class="weatherBox" wx:for="{{today.hours}}" wx:key="key">
                             <view class="weatherInfo">
-                                <!-- <image src="/images/icon/00晴.png"></image> -->
-                                <text class="iconfont icon-xiaoyu"></text>
+                                <text class="iconfont {{item.weaClass}}"></text>
                                 <view>
                                     <text>{{item.wea}}</text>
                                     <text>{{item.tem}}°</text>
