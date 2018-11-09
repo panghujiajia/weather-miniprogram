@@ -1,4 +1,11 @@
 <view class="container">
-    <view>————附近的公交站————</view>
-    <view wx:for="{{busData}}" wx:key="key">{{item.title}}</view>
+    <view class="box">
+        <view>————附近的公交站</view>
+        <view wx:for="{{busData}}" wx:key="key">{{item.title}}</view>
+    </view>
+    <view class="box">
+        <view>————离我最近的公交站</view>
+        <view style="color:red">{{busData[0].title}}</view>
+        <view wx:for="{{busData[0]}}" wx:key="key"></view>
+    </view>
 </view>

@@ -1,4 +1,8 @@
 .container {
-  padding-top: 100rpx;
-  padding-left: 40rpx;
+  padding: 20rpx;
+  padding-top: 150rpx;
+  display: flex;
+}
+.container .box {
+  flex: 1;
 }

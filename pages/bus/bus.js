@@ -14,7 +14,7 @@ Page({
         var that = this;
         // 调用接口
         this.data.qqMap.search({
-            keyword: '公交',
+            keyword: '公交站',
             page_size: this.data.pageSize,
             page_index: this.data.pageIndex,
             success: function (res) {
@@ -36,14 +36,14 @@ Page({
                 })
                 // 判断数据是否获取完毕，完毕即打印公交站名
                 if (that.data.busData.length == res.count) {
-                    var locationData = u.getStorage('locationData');
-                    console.log(locationData);
-                    var obj = {};
-                    for (var i in that.data.busData) {
-                        var item = that.data.busData[i];
-                        // console.log(item.title)
-                        Math.min()
-                    }
+                    // 讲道理返回的数据应该是按距离升序排列的,取第一条就是离我最近的
+                    var nearByData = that.data.busData[0];
+                    // 获取公交车信息转成数组
+                    var nearByBus = nearByData.address.split(',');
+                    that.setData({
+                        nearByData: nearByData,
+                        nearByBus: nearByBus
+                    })
                 }
             },
             fail: function (res) {
