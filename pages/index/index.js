@@ -31,12 +31,15 @@ Page({
             success: function (res) {
                 if (!!res) {
                     var locationData = res;
-                    console.log(res)
-                    that.setData({
-                        locationData: locationData
-                    })
+                    // 请求参数
+                    var ajaxData = {};
+                    ajaxData.lat = locationData.latitude + '';
+                    ajaxData.lon = locationData.longitude + '';
+                    that.data.locationData = locationData;
+                    that.data.ajaxData = ajaxData;
                     u.setStorage('locationData', locationData);
-                    that.getUserCity();
+                    // that.getUserCity();
+                    // that.getForecast15days();
                 }
             }
         })
@@ -60,6 +63,22 @@ Page({
                 }
             }
         })
+    },
+    // 15天天气预报
+    getForecast15days: function () {
+        // var ajaxData = this.data.ajaxData;
+        // console.log(this.data.ajaxData)
+        // ajaxData.token = '7538f7246218bdbf795b329ab09cc524';
+        // this.data.ajaxData = ajaxData;
+        // console.log(this.data.ajaxData)
+        u.ajax(u.urls.forecast15days, this.data.ajaxData, 'POST',
+            function (res) {
+                console.log(res);
+            },
+            function (res) {
+                console.log(res);
+            }
+        )
     },
     // 模糊匹配
     fuzzyMatch: function (val) {
