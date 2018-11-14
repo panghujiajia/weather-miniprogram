@@ -2,62 +2,56 @@
     <image src="/images/dontlook.jpg"></image>
 </view>
 <view class="container">
-    <text class="addCity iconfont icon-jia"></text>
+    <text class="addCity iconfont icon-jia" bindtap="addCity"></text>
     <view class="dotsWrap" wx:if="{{dataArr.length != 1}}">
         <view class="dots">
             <text wx:for="{{dataArr}}" wx:key="key"></text>
         </view>
     </view>
-    <swiper circular="{{circular}}" autoplay="{{autoplay}}" duration="{{duration}}">
-        <block>
-            <swiper-item wx:for="{{dataArr}}" wx:key="key">
-                <view class="mainContent">
-                    <image src="{{weatherBgImg}}"></image>
-                    <view class="mainInfoWrap">
-                        <view class="address">
-                            <text class="iconfont icon-location"></text>
-                            <text>{{addressData.city}}</text>
-                        </view>
-                        <view class="weather">
-                            <view class="temperature" wx:if="{{nowWeather != null}}">{{nowWeather.tem}}<text></text></view>
-                            <view class="description">{{nowWeather.wea}}</view>
-                            <view class="range" wx:if="{{today != null}}">{{today.tem1}}°~{{today.tem2}}°</view>
-                        </view>
+    <view class="mainContent">
+        <image src="{{weatherBgImg}}"></image>
+        <view class="mainInfoWrap">
+            <view class="address">
+                <text class="iconfont icon-location"></text>
+                <text>{{addressData.city}}</text>
+            </view>
+            <view class="weather">
+                <view class="temperature" wx:if="{{nowWeather != null}}">{{nowWeather.tem}}<text></text></view>
+                <view class="description">{{nowWeather.wea}}</view>
+                <view class="range" wx:if="{{today != null}}">{{today.tem1}}°~{{today.tem2}}°</view>
+            </view>
+        </view>
+    </view>
+    <view class="daysWeather">
+        <view class="tabs">
+            <text data-tabindex="{{item.tabIndex}}" class="{{item.tabIndex == curIndex ? 'cur' : ''}}" bindtap="changeTabs"
+                wx:for="{{tabData}}" wx:key="key">{{item.tabName}}</text>
+        </view>
+        <scroll-view class="scrollBox" wx:if="{{curIndex == 1}}" scroll-x="true">
+            <view class="weatherBox" wx:for="{{weatherData}}" wx:key="key">
+                <view class="weatherInfo">
+                    <text class="iconfont {{item.weaClass}}"></text>
+                    <view>
+                        <text>{{item.wea}}</text>
+                        <text>{{item.tem1}}°~{{item.tem2}}°</text>
                     </view>
+                    <text>{{item.day}}</text>
                 </view>
-                <view class="daysWeather">
-                    <view class="tabs">
-                        <text data-tabindex="{{item.tabIndex}}" class="{{item.tabIndex == curIndex ? 'cur' : ''}}"
-                            bindtap="changeTabs" wx:for="{{tabData}}" wx:key="key">{{item.tabName}}</text>
+            </view>
+        </scroll-view>
+        <scroll-view class="scrollBox" wx:elif="{{curIndex == 2}}" scroll-x="true">
+            <view class="weatherBox" wx:for="{{today.hours}}" wx:key="key">
+                <view class="weatherInfo">
+                    <text class="iconfont {{item.weaClass}}"></text>
+                    <view>
+                        <text>{{item.wea}}</text>
+                        <text>{{item.tem}}°</text>
                     </view>
-                    <scroll-view class="scrollBox" wx:if="{{curIndex == 1}}" scroll-x="true">
-                        <view class="weatherBox" wx:for="{{weatherData}}" wx:key="key">
-                            <view class="weatherInfo">
-                                <text class="iconfont {{item.weaClass}}"></text>
-                                <view>
-                                    <text>{{item.wea}}</text>
-                                    <text>{{item.tem1}}°~{{item.tem2}}°</text>
-                                </view>
-                                <text>{{item.day}}</text>
-                            </view>
-                        </view>
-                    </scroll-view>
-                    <scroll-view class="scrollBox" wx:elif="{{curIndex == 2}}" scroll-x="true">
-                        <view class="weatherBox" wx:for="{{today.hours}}" wx:key="key">
-                            <view class="weatherInfo">
-                                <text class="iconfont {{item.weaClass}}"></text>
-                                <view>
-                                    <text>{{item.wea}}</text>
-                                    <text>{{item.tem}}°</text>
-                                </view>
-                                <text>{{item.day}}</text>
-                            </view>
-                        </view>
-                    </scroll-view>
+                    <text>{{item.day}}</text>
                 </view>
-            </swiper-item>
-        </block>
-    </swiper>
+            </view>
+        </scroll-view>
+    </view>
     <view class="quotes">
         <text>{{quotesData.famous_saying}}</text>
         <text wx:if="{{quotesData != null}}">——{{quotesData.famous_name}}</text>

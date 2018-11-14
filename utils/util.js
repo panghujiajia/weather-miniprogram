@@ -45,7 +45,10 @@ const ajax = (url, data, method, s, f, c) => {
                 s(res)
         },
         fail: function (res) {
-            wx.showToast('网络异常，请重试！');
+            wx.showToast({
+                title: '网络异常，请重试！',
+                icon: 'none'
+            });
             if (f)
                 f(res)
         },

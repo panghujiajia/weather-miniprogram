@@ -15,12 +15,22 @@ Page({
         }],
         locationData: null,     //定位信息
         addressData: null,       //地址信息
-        dataArr: []
     },
     // tab切换
     changeTabs: function (e) {
         this.setData({
             curIndex: e.currentTarget.dataset.tabindex
+        })
+    },
+    // 添加城市
+    addCity: function () {
+        wx.vibrateLong({
+            success: function () {
+                wx.showToast({
+                    title: '还没做呢',
+                    icon: 'none'
+                })
+            }
         })
     },
     // 获取用户定位
@@ -38,7 +48,7 @@ Page({
                     that.data.locationData = locationData;
                     that.data.ajaxData = ajaxData;
                     u.setStorage('locationData', locationData);
-                    // that.getUserCity();
+                    that.getUserCity();
                     // that.getForecast15days();
                 }
             }
@@ -135,10 +145,8 @@ Page({
                         items.weaClass = that.fuzzyMatch(items.wea);
                     }
                 }
-                that.data.dataArr.push(weatherData);
                 that.setData({
-                    weatherData: weatherData,
-                    dataArr: that.data.dataArr
+                    weatherData: weatherData
                 })
                 that.getNowNum();
             })
@@ -246,7 +254,7 @@ Page({
         })
         this.data.qqMap = qqMap;
         this.getUserLocation();
-        // this.getQuotes();
+        this.getQuotes();
     },
     onReady: function () {
     },

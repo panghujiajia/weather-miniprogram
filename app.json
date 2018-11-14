@@ -16,12 +16,6 @@
                 "selectedIconPath": "/images/tabIcon/curIndex.png"
             },
             {
-                "pagePath": "pages/bus/bus",
-                "text": "公交",
-                "iconPath": "/images/tabIcon/box.png",
-                "selectedIconPath": "/images/tabIcon/curBox.png"
-            },
-            {
                 "pagePath": "pages/set/set",
                 "text": "发现",
                 "iconPath": "/images/tabIcon/find.png",
