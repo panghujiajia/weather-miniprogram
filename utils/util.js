@@ -67,10 +67,25 @@ const setStorage = (key, val) => {
 const getStorage = key => {
     return wx.getStorageSync(key);
 }
+// showtoast
+const showToast = obj => {
+    var defObj = {
+        mask: true,
+        icon: 'none'
+    }
+    if ('object' == typeof (obj)) {
+        var newObj = Object.assign(defObj, obj);
+        wx.showToast(newObj);
+    } else if ('string' == typeof (obj)) {
+        defObj.title = obj;
+        wx.showToast(defObj);
+    }
+}
 module.exports = {
     formatTime: formatTime,
     ajax: ajax,
     urls: urls,
+    showToast: showToast,
     setStorage: setStorage,
     getStorage: getStorage
 }

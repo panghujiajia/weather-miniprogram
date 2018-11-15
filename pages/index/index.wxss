@@ -126,8 +126,26 @@ page {
   margin-top: 20rpx;
 }
 .container .daysWeather {
-  padding: 40rpx 0;
+  padding: 40rpx 0 20rpx;
   background: #fff;
+}
+.container .daysWeather.yin {
+  background: linear-gradient(#92CDD1, #fff);
+}
+.container .daysWeather.qing {
+  background: linear-gradient(#8FDDF1, #fff);
+}
+.container .daysWeather.wu {
+  background: linear-gradient(#D9C28C, #fff);
+}
+.container .daysWeather.xue {
+  background: linear-gradient(#D1D9E4, #fff);
+}
+.container .daysWeather.ye {
+  background: linear-gradient(#75A3B2, #fff);
+}
+.container .daysWeather.yu {
+  background: linear-gradient(#BFC1E8, #fff);
 }
 .container .daysWeather .tabs {
   display: flex;
@@ -156,7 +174,7 @@ page {
   width: 180rpx;
   height: 200rpx;
   display: inline-block;
-  border-right: 2rpx solid #EBEBEB;
+  border-right: 1rpx solid #fff;
 }
 .container .daysWeather .scrollBox .weatherBox:last-child {
   border-right: none;

@@ -21,17 +21,17 @@ page {
 
 .container {
     position: relative;
-    background:#fff;
+    background: #fff;
     z-index: 99;
-    .addCity{
+    .addCity {
         position: absolute;
-        height:150rpx;
-        line-height:150rpx;
-        top:0;
-        left:20rpx;
-        font-size:50rpx;
-        color:#fff;
-        z-index:999;
+        height: 150rpx;
+        line-height: 150rpx;
+        top: 0;
+        left: 20rpx;
+        font-size: 50rpx;
+        color: #fff;
+        z-index: 999;
     }
     .dotsWrap {
         position: absolute;
@@ -127,8 +127,26 @@ page {
         }
     }
     .daysWeather {
-        padding: 40rpx 0;
+        padding: 40rpx 0 20rpx;
         background: #fff;
+        &.yin {
+            background: linear-gradient(#92CDD1, #fff);
+        }
+        &.qing {
+            background: linear-gradient(#8FDDF1, #fff);
+        }
+        &.wu {
+            background: linear-gradient(#D9C28C, #fff);
+        }
+        &.xue {
+            background: linear-gradient(#D1D9E4, #fff);
+        }
+        &.ye {
+            background: linear-gradient(#75A3B2, #fff);
+        }
+        &.yu {
+            background: linear-gradient(#BFC1E8, #fff);
+        }
         .tabs {
             display: flex;
             margin-left: 40rpx;
@@ -155,7 +173,7 @@ page {
                 width: 180rpx;
                 height: 200rpx;
                 display: inline-block;
-                border-right: 2rpx solid #EBEBEB;
+                border-right: 1rpx solid #fff;
                 &:last-child {
                     border-right: none;
                 }
@@ -192,27 +210,27 @@ page {
     }
     .quotes {
         height: 10vh;
-        padding:0 40rpx;
-        border-top:1rpx solid #EBEBEB;
+        padding: 0 40rpx;
+        border-top: 1rpx solid #EBEBEB;
         background: #fff;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        text:first-child{
+        text:first-child {
             align-self: flex-start;
             overflow: hidden;
             text-overflow: ellipsis;
             display: -webkit-box;
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 2;
-            width:90%;
-            text-indent:48rpx;
-            font-size:24rpx;
+            width: 90%;
+            text-indent: 48rpx;
+            font-size: 24rpx;
         }
-        text:last-child{
+        text:last-child {
             align-self: flex-end;
-            font-size:24rpx;
+            font-size: 24rpx;
         }
     }
 }

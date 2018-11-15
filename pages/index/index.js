@@ -7,7 +7,7 @@ Page({
         circular: true,  //滑动衔接
         curIndex: 1,
         tabData: [{
-            tabName: '7天天气',
+            tabName: '15天天气',
             tabIndex: 1
         }, {
             tabName: '24H天气',
@@ -43,16 +43,78 @@ Page({
                     var locationData = res;
                     // 请求参数
                     var ajaxData = {};
-                    ajaxData.lat = locationData.latitude + '';
-                    ajaxData.lon = locationData.longitude + '';
+                    ajaxData.lat = locationData.latitude;
+                    ajaxData.lon = locationData.longitude;
                     that.data.locationData = locationData;
                     that.data.ajaxData = ajaxData;
                     u.setStorage('locationData', locationData);
-                    that.getUserCity();
-                    // that.getForecast15days();
+                    // that.getUserCity();
+                    that.getForecast15days();
+                    that.getForecast24hours();
                 }
             }
         })
+    },
+    // 15天天气预报
+    getForecast15days: function () {
+        var that = this;
+        u.ajax(u.urls.forecast15days, this.data.ajaxData, 'POST',
+            function (res) {
+                switch (res.data.code) {
+                    case 0:
+                        var forecast15daysData = res.data.data;
+                        for (var i in forecast15daysData.forecast) {
+                            var item = forecast15daysData.forecast[i];
+                            item.weaIconSrc = '/images/icon/W' + item.conditionIdDay + '.png';  //根据天气id取对应图片
+                        }
+                        that.setData({
+                            forecast15daysData: forecast15daysData
+                        })
+                        break;
+                    default:
+                        u.showToast('错误代码：' + res.data.code + ',请联系乔大大');
+                        break;
+                }
+            },
+            function (res) {
+                console.log(res);
+            }
+        )
+    },
+    // 24小时天气预报
+    getForecast24hours: function () {
+        // 获取当前时间 --- 小时
+        var curHour = new Date().getHours();
+        var that = this;
+        u.ajax(u.urls.forecast24hours, this.data.ajaxData, 'POST',
+            function (res) {
+                switch (res.data.code) {
+                    case 0:
+                        var forecast24hoursData = res.data.data;
+                        for (var i in forecast24hoursData.hourly) {
+                            var item = forecast24hoursData.hourly[i];
+                            if ((curHour - 0) == item.hour) {
+                                var curCondition = item.condition;
+                                var curTemp = item; //当前时间的天气
+                                that.getContainerBg(curCondition);
+                            }
+                            item.weaIconSrc = '/images/icon/W' + item.iconDay + '.png';  //根据天气id取对应图片
+                        }
+                        that.setData({
+                            curTemp: curTemp,
+                            curHour: curHour,
+                            forecast24hoursData: forecast24hoursData
+                        })
+                        break;
+                    default:
+                        u.showToast('错误代码：' + res.data.code + ',请联系乔大大');
+                        break;
+                }
+            },
+            function (res) {
+                console.log(res);
+            }
+        )
     },
     // 根据用户定位坐标获取用户城市
     getUserCity: function () {
@@ -74,21 +136,30 @@ Page({
             }
         })
     },
-    // 15天天气预报
-    getForecast15days: function () {
-        // var ajaxData = this.data.ajaxData;
-        // console.log(this.data.ajaxData)
-        // ajaxData.token = '7538f7246218bdbf795b329ab09cc524';
-        // this.data.ajaxData = ajaxData;
-        // console.log(this.data.ajaxData)
-        u.ajax(u.urls.forecast15days, this.data.ajaxData, 'POST',
-            function (res) {
-                console.log(res);
-            },
-            function (res) {
-                console.log(res);
-            }
-        )
+    // 根据不同天气，显示不同的背景图片
+    getContainerBg: function (val) {
+        var weatherBgImg = '/images/ye.png';
+        var weatherBgClass = 'ye';
+        if (val.indexOf('雨') != -1) {
+            weatherBgImg = '/images/yu.png';
+            weatherBgClass = 'yu';
+        } else if (val.indexOf('雪') != -1) {
+            weatherBgImg = '/images/xue.png';
+            weatherBgClass = 'xue';
+        } else if (val.indexOf('阴') != -1 || val.indexOf('云') != -1) {
+            weatherBgImg = '/images/yin.png';
+            weatherBgClass = 'yin';
+        } else if (val.indexOf('雾') != -1) {
+            weatherBgImg = '/images/wu.png';
+            weatherBgClass = 'wu';
+        } else if (val.indexOf('晴') != -1) {
+            weatherBgImg = '/images/qing.png';
+            weatherBgClass = 'qing';
+        }
+        this.setData({
+            weatherBgImg: weatherBgImg,
+            weatherBgClass: weatherBgClass
+        })
     },
     // 模糊匹配
     fuzzyMatch: function (val) {
@@ -243,10 +314,6 @@ Page({
             console.log(res)
         })
     },
-    // 禁止轮播组件滑动
-    // stopTouchMove: function () {
-    //     return false;
-    // },
     onLoad: function (options) {
         // 生命周期函数--监听页面加载
         var qqMap = new QQMapWX({

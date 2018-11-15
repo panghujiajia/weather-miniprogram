@@ -3,51 +3,53 @@
 </view>
 <view class="container">
     <text class="addCity iconfont icon-jia" bindtap="addCity"></text>
-    <view class="dotsWrap" wx:if="{{dataArr.length != 1}}">
-        <view class="dots">
-            <text wx:for="{{dataArr}}" wx:key="key"></text>
-        </view>
-    </view>
     <view class="mainContent">
         <image src="{{weatherBgImg}}"></image>
         <view class="mainInfoWrap">
             <view class="address">
                 <text class="iconfont icon-location"></text>
-                <text>{{addressData.city}}</text>
+                <!-- 依次取区、省、国家 -->
+                <text>{{forecast15daysData.city.name || forecast15daysData.city.pname ||
+                    forecast15daysData.city.counname || '未知'}}</text>
             </view>
             <view class="weather">
-                <view class="temperature" wx:if="{{nowWeather != null}}">{{nowWeather.tem}}<text></text></view>
-                <view class="description">{{nowWeather.wea}}</view>
-                <view class="range" wx:if="{{today != null}}">{{today.tem1}}°~{{today.tem2}}°</view>
+                <view class="temperature">{{curTemp.temp}}<text></text></view>
+                <view class="description">{{curTemp.condition}}</view>
+                <view class="range">{{forecast15daysData.forecast[1].tempDay}}°~{{forecast15daysData.forecast[1].tempNight}}°</view>
             </view>
         </view>
     </view>
-    <view class="daysWeather">
+    <view class="daysWeather {{weatherBgClass}}">
         <view class="tabs">
             <text data-tabindex="{{item.tabIndex}}" class="{{item.tabIndex == curIndex ? 'cur' : ''}}" bindtap="changeTabs"
                 wx:for="{{tabData}}" wx:key="key">{{item.tabName}}</text>
         </view>
         <scroll-view class="scrollBox" wx:if="{{curIndex == 1}}" scroll-x="true">
-            <view class="weatherBox" wx:for="{{weatherData}}" wx:key="key">
+            <view class="weatherBox" wx:for="{{forecast15daysData.forecast}}" wx:key="key">
                 <view class="weatherInfo">
-                    <text class="iconfont {{item.weaClass}}"></text>
+                    <!-- <text class="iconfont {{item.weaClass}}"></text> -->
+                    <image src="{{item.weaIconSrc}}"></image>
                     <view>
-                        <text>{{item.wea}}</text>
-                        <text>{{item.tem1}}°~{{item.tem2}}°</text>
+                        <text>{{item.conditionDay}}</text>
+                        <text>{{item.tempDay}}°~{{item.tempNight}}°</text>
                     </view>
-                    <text>{{item.day}}</text>
+                    <text wx:if="{{index == 0}}">昨天</text>
+                    <text wx:elif="{{index == 1}}" style="color:crimson;">今天</text>
+                    <text wx:else>{{item.predictDate}}</text>
                 </view>
             </view>
         </scroll-view>
         <scroll-view class="scrollBox" wx:elif="{{curIndex == 2}}" scroll-x="true">
-            <view class="weatherBox" wx:for="{{today.hours}}" wx:key="key">
+            <view class="weatherBox" wx:for="{{forecast24hoursData.hourly}}" wx:key="key">
                 <view class="weatherInfo">
-                    <text class="iconfont {{item.weaClass}}"></text>
+                    <!-- <text class="iconfont {{item.weaClass}}"></text> -->
+                    <image src="{{item.weaIconSrc}}"></image>
                     <view>
-                        <text>{{item.wea}}</text>
-                        <text>{{item.tem}}°</text>
+                        <text>{{item.condition}}</text>
+                        <text>{{item.temp}}°</text>
                     </view>
-                    <text>{{item.day}}</text>
+                    <text wx:if="{{(curHour - 0) == item.hour}}" style="color:crimson;">现在</text>
+                    <text wx:else>{{item.hour}}时</text>
                 </view>
             </view>
         </scroll-view>
