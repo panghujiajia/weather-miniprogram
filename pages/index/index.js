@@ -51,6 +51,8 @@ Page({
                     // that.getUserCity();
                     that.getForecast15days();
                     that.getForecast24hours();
+                    that.getCondition();
+                    that.getShortforecast();
                 }
             }
         })
@@ -77,14 +79,12 @@ Page({
                 }
             },
             function (res) {
-                console.log(res);
+                u.showToast('网络异常，请刷新重试！');
             }
         )
     },
     // 24小时天气预报
     getForecast24hours: function () {
-        // 获取当前时间 --- 小时
-        var curHour = new Date().getHours();
         var that = this;
         u.ajax(u.urls.forecast24hours, this.data.ajaxData, 'POST',
             function (res) {
@@ -93,16 +93,9 @@ Page({
                         var forecast24hoursData = res.data.data;
                         for (var i in forecast24hoursData.hourly) {
                             var item = forecast24hoursData.hourly[i];
-                            if ((curHour - 0) == item.hour) {
-                                var curCondition = item.condition;
-                                var curTemp = item; //当前时间的天气
-                                that.getContainerBg(curCondition);
-                            }
                             item.weaIconSrc = '/images/icon/W' + item.iconDay + '.png';  //根据天气id取对应图片
                         }
                         that.setData({
-                            curTemp: curTemp,
-                            curHour: curHour,
                             forecast24hoursData: forecast24hoursData
                         })
                         break;
@@ -112,7 +105,52 @@ Page({
                 }
             },
             function (res) {
-                console.log(res);
+                u.showToast('网络异常，请刷新重试！');
+            }
+        )
+    },
+    // 实时天气预报
+    getCondition: function () {
+        var that = this;
+        u.ajax(u.urls.condition, this.data.ajaxData, 'POST',
+            function (res) {
+                switch (res.data.code) {
+                    case 0:
+                        var conditionData = res.data.data;
+                        that.getContainerBg(conditionData.condition.condition);//根据当前天气，获取背景图
+                        that.setData({
+                            conditionData: conditionData
+                        })
+                        break;
+                    default:
+                        u.showToast('错误代码：' + res.data.code + ',请联系乔大大');
+                        break;
+                }
+            },
+            function (res) {
+                u.showToast('网络异常，请刷新重试！');
+            }
+        )
+    },
+    // 短时预报
+    getShortforecast: function () {
+        var that = this;
+        u.ajax(u.urls.shortforecast, this.data.ajaxData, 'POST',
+            function (res) {
+                switch (res.data.code) {
+                    case 0:
+                        var shortforecastData = res.data.data;
+                        that.setData({
+                            shortforecastData: shortforecastData
+                        })
+                        break;
+                    default:
+                        u.showToast('错误代码：' + res.data.code + ',请联系乔大大');
+                        break;
+                }
+            },
+            function (res) {
+                u.showToast('网络异常，请刷新重试！');
             }
         )
     },
@@ -297,7 +335,7 @@ Page({
     // 获取名人名言
     getQuotes: function () {
         var that = this;
-        var url = 'https://api.avatardata.cn/MingRenMingYan/Random';
+        var url = 'http://api.avatardata.cn/MingRenMingYan/Random';
         var data = {
             key: 'b7133dffebd04e1181c1e3e93278c203'
         }
@@ -319,6 +357,11 @@ Page({
         var qqMap = new QQMapWX({
             key: '5DUBZ-ORBKV-UUGPC-UKT4G-CGHZ6-JQBGX'
         })
+        // 获取当前时间 --- 小时
+        var curHour = new Date().getHours();
+        this.setData({
+            curHour: curHour
+        })
         this.data.qqMap = qqMap;
         this.getUserLocation();
         this.getQuotes();
@@ -332,6 +375,7 @@ Page({
     onUnload: function () {
     },
     onPullDownRefresh: function () {
+        this.onLoad();
         // 页面相关事件处理函数--监听用户下拉动作
     },
     onReachBottom: function () {

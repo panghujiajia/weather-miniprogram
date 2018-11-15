@@ -9,13 +9,15 @@
             <view class="address">
                 <text class="iconfont icon-location"></text>
                 <!-- 依次取区、省、国家 -->
-                <text>{{forecast15daysData.city.name || forecast15daysData.city.pname ||
-                    forecast15daysData.city.counname || '未知'}}</text>
+                <text>{{conditionData.city.name || conditionData.city.pname ||
+                    conditionData.city.counname || '未知'}}</text>
+                <view class="updateTime">{{conditionData.condition.updatetime}} 更新</view>
             </view>
             <view class="weather">
-                <view class="temperature">{{curTemp.temp}}<text></text></view>
-                <view class="description">{{curTemp.condition}}</view>
+                <view class="temperature">{{conditionData.condition.temp}}<text></text></view>
+                <view class="description">{{conditionData.condition.condition}}</view>
                 <view class="range">{{forecast15daysData.forecast[1].tempDay}}°~{{forecast15daysData.forecast[1].tempNight}}°</view>
+                <view class="tips">{{shortforecastData.sfc.banner}}</view>
             </view>
         </view>
     </view>

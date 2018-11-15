@@ -95,6 +95,10 @@ page {
   font-size: 36rpx;
   margin-right: 10rpx;
 }
+.container .mainContent .mainInfoWrap .address .updateTime {
+  font-size: 22rpx;
+  color: #fff;
+}
 .container .mainContent .mainInfoWrap .weather {
   display: flex;
   flex-direction: column;
@@ -125,8 +129,12 @@ page {
   font-size: 26rpx;
   margin-top: 20rpx;
 }
+.container .mainContent .mainInfoWrap .weather .tips {
+  font-size: 22rpx;
+  margin-top: 30rpx;
+}
 .container .daysWeather {
-  padding: 40rpx 0 20rpx;
+  padding: 40rpx 0 30rpx;
   background: #fff;
 }
 .container .daysWeather.yin {
