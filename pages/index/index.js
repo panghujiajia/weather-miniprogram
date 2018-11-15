@@ -327,18 +327,18 @@ Page({
         var data = {
             key: 'b7133dffebd04e1181c1e3e93278c203'
         }
-        u.ajax(url, data, 'get', function (res) {
-            if (res.data.reason == 'Succes') {
-                // famous_name  名人
-                // famous_saying名言
-                var quotesData = res.data.result;
-                that.setData({
-                    quotesData: quotesData
-                })
+        u.ajax(url, data, 'get',
+            function (res) {
+                if (res.data.reason == 'Succes') {
+                    // famous_name  名人
+                    // famous_saying名言
+                    var quotesData = res.data.result;
+                    that.setData({
+                        quotesData: quotesData
+                    })
+                }
             }
-        }, function (res) {
-            console.log(res)
-        })
+        )
     },
     onLoad: function (options) {
         // 生命周期函数--监听页面加载
