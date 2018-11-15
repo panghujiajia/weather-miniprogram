@@ -22,7 +22,7 @@
         </view>
     </view>
     <view class="daysWeather {{weatherBgClass}}">
-        <view class="tabs">
+        <view class="tabs" wx:if="{{forecast15daysData != null}}">
             <text data-tabindex="{{item.tabIndex}}" class="{{item.tabIndex == curIndex ? 'cur' : ''}}" bindtap="changeTabs"
                 wx:for="{{tabData}}" wx:key="key">{{item.tabName}}</text>
         </view>

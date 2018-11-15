@@ -77,9 +77,6 @@ Page({
                         u.showToast('错误代码：' + res.data.code + ',请联系乔大大');
                         break;
                 }
-            },
-            function (res) {
-                u.showToast('网络异常，请刷新重试！');
             }
         )
     },
@@ -103,9 +100,6 @@ Page({
                         u.showToast('错误代码：' + res.data.code + ',请联系乔大大');
                         break;
                 }
-            },
-            function (res) {
-                u.showToast('网络异常，请刷新重试！');
             }
         )
     },
@@ -126,9 +120,6 @@ Page({
                         u.showToast('错误代码：' + res.data.code + ',请联系乔大大');
                         break;
                 }
-            },
-            function (res) {
-                u.showToast('网络异常，请刷新重试！');
             }
         )
     },
@@ -148,9 +139,6 @@ Page({
                         u.showToast('错误代码：' + res.data.code + ',请联系乔大大');
                         break;
                 }
-            },
-            function (res) {
-                u.showToast('网络异常，请刷新重试！');
             }
         )
     },

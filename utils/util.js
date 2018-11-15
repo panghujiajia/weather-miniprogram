@@ -45,15 +45,12 @@ const ajax = (url, data, method, s, f, c) => {
                 s(res)
         },
         fail: function (res) {
-            wx.showToast({
-                title: '网络异常，请重试！',
-                icon: 'none'
-            });
             if (f)
                 f(res)
         },
         complete: function (res) {
             wx.hideLoading()
+            wx.stopPullDownRefresh();
             if (c)
                 c(res)
         }
